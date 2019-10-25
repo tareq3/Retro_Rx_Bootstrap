@@ -1,0 +1,99 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.mti.retro_rx_bootstrap"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding{
+        enabled=true
+    }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0' // now for Coordinator Layout you have to add depedencies
+
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    // ViewModel and LiveData dependencies
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
+    //for legacy support
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+  //for AppBar and Toolbar,  implementation 'com.android.support:design:28.0.0' alternative
+    implementation 'com.google.android.material:material:1.0.0'
+
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
+
+    //stetho
+
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+
+    //Gson to json parsing
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    // Room dependencies
+    implementation 'androidx.room:room-runtime:2.2.1'
+    annotationProcessor 'androidx.room:room-compiler:2.2.1'
+    implementation 'androidx.room:room-rxjava2:2.2.1'
+    annotationProcessor 'androidx.room:room-compiler:2.2.1'
+
+
+
+
+    implementation('androidx.work:work-runtime:2.2.0') {
+        exclude group: 'com.google.guava', module: 'listenablefuture'
+    }
+
+    //for pojo
+    implementation 'org.glassfish:javax.annotation:10.0-b28'
+
+
+
+    //Retrofit2 and Rxjava2 Combo with Adapter
+    implementation "com.squareup.retrofit2:retrofit:2.6.2"
+    implementation "com.squareup.retrofit2:converter-gson:2.6.2"
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    //okhttp3 is optional for authentication with retrofit
+
+
+    // glide image library
+    implementation "com.github.bumptech.glide:glide:4.10.0"
+
+    //For Svg and  image fetching
+    implementation 'com.kirich1409.svgplugin:glide4:1.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    implementation 'com.caverock:androidsvg:1.4'
+
+
+}
