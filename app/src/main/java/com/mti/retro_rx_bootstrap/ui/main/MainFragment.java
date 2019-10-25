@@ -47,7 +47,7 @@ public class MainFragment extends Fragment {
 
        mViewModel.getAllTasks();
 
-       mViewModel.getListLiveData().observe(this, new Observer<List<TaskItem>>() {
+       mViewModel.getResultListLiveData().observe(this, new Observer<List<TaskItem>>() {
            @Override
            public void onChanged(List<TaskItem> taskItems) {
                textView.setText(new Gson().toJson(taskItems));

@@ -24,9 +24,8 @@ import io.reactivex.schedulers.Schedulers;
 public class TaskRepository {
    private   TaskApiService mTaskApiService;
 
-    private MediatorLiveData<List<TaskItem>> mResultListMediatorLiveData = new MediatorLiveData<>();
 
-    private MediatorLiveData<String> mErrorMediatorLiveData= new MediatorLiveData<>();
+   private MediatorLiveData<TaskResponse> mTaskResponseMediatorLiveData= new MediatorLiveData<>();
 
     public TaskRepository(TaskApiService taskApiService) {
         mTaskApiService = taskApiService;
@@ -37,22 +36,13 @@ public class TaskRepository {
     public void getAllTasks(){
        final LiveData<TaskResponse> source= LiveDataReactiveStreams.fromPublisher( mTaskApiService.getAllTasks().subscribeOn(Schedulers.io()));
 
-        mResultListMediatorLiveData.addSource(source, taskResponse -> {
-                mResultListMediatorLiveData.setValue(taskResponse.getResult());
-                             mResultListMediatorLiveData.removeSource(source); //after reading the data remove the source
-        });
-
-        mErrorMediatorLiveData.addSource(source, taskResponse -> {
-            mErrorMediatorLiveData.setValue(taskResponse.getError());
-            mErrorMediatorLiveData.removeSource(source);
-        });
+       mTaskResponseMediatorLiveData.addSource(source, taskResponse -> {
+           mTaskResponseMediatorLiveData.setValue(taskResponse);
+           mTaskResponseMediatorLiveData.removeSource(source);
+       });
     }
 
-    public LiveData<List<TaskItem>> getResultListMediatorLiveData() {
-        return mResultListMediatorLiveData;
-    }
-
-    public LiveData<String> getErrorMediatorLiveData() {
-        return mErrorMediatorLiveData;
+    public LiveData<TaskResponse> getTaskResponseMediatorLiveData() {
+        return mTaskResponseMediatorLiveData;
     }
 }
